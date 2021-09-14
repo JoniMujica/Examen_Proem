@@ -1,0 +1,14 @@
+D:\Archivos w11\Documentos\Jonathan_Mujica\Ejercicio1\bin\Debug\netcoreapp3.1\Ejercicio1.exe
+D:\Archivos w11\Documentos\Jonathan_Mujica\Ejercicio1\bin\Debug\netcoreapp3.1\Ejercicio1.deps.json
+D:\Archivos w11\Documentos\Jonathan_Mujica\Ejercicio1\bin\Debug\netcoreapp3.1\Ejercicio1.runtimeconfig.json
+D:\Archivos w11\Documentos\Jonathan_Mujica\Ejercicio1\bin\Debug\netcoreapp3.1\Ejercicio1.runtimeconfig.dev.json
+D:\Archivos w11\Documentos\Jonathan_Mujica\Ejercicio1\bin\Debug\netcoreapp3.1\Ejercicio1.dll
+D:\Archivos w11\Documentos\Jonathan_Mujica\Ejercicio1\bin\Debug\netcoreapp3.1\Ejercicio1.pdb
+D:\Archivos w11\Documentos\Jonathan_Mujica\Ejercicio1\obj\Debug\netcoreapp3.1\Ejercicio1.csproj.AssemblyReference.cache
+D:\Archivos w11\Documentos\Jonathan_Mujica\Ejercicio1\obj\Debug\netcoreapp3.1\Ejercicio1.GeneratedMSBuildEditorConfig.editorconfig
+D:\Archivos w11\Documentos\Jonathan_Mujica\Ejercicio1\obj\Debug\netcoreapp3.1\Ejercicio1.AssemblyInfoInputs.cache
+D:\Archivos w11\Documentos\Jonathan_Mujica\Ejercicio1\obj\Debug\netcoreapp3.1\Ejercicio1.AssemblyInfo.cs
+D:\Archivos w11\Documentos\Jonathan_Mujica\Ejercicio1\obj\Debug\netcoreapp3.1\Ejercicio1.csproj.CoreCompileInputs.cache
+D:\Archivos w11\Documentos\Jonathan_Mujica\Ejercicio1\obj\Debug\netcoreapp3.1\Ejercicio1.dll
+D:\Archivos w11\Documentos\Jonathan_Mujica\Ejercicio1\obj\Debug\netcoreapp3.1\Ejercicio1.pdb
+D:\Archivos w11\Documentos\Jonathan_Mujica\Ejercicio1\obj\Debug\netcoreapp3.1\Ejercicio1.genruntimeconfig.cache
