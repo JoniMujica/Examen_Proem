@@ -15,7 +15,6 @@ namespace Ejercicio1
         {
             double[] numeros = new double[2];
             ValidarNumero(ref numeros);
-            //MostrarValores(numeros);
             Casos(numeros);
         }
 
@@ -40,21 +39,11 @@ namespace Ejercicio1
             if (nums[0] == nums[1])
                 Console.WriteLine("Lo numeros son iguales, valor numerico al cuadrado: {0}",nums[1]*nums[1]);
 
-            //double res = (nums[0] % nums[1] == 0) ? (nums[0] - nums[1]) : nums[0] % nums[1];
+
             Console.WriteLine("El valor {0} es {1}", (nums[0] % nums[1] == 0) ? "de la Resta" : "del Resto", (nums[0] % nums[1] == 0) ? (nums[0] - nums[1]) : nums[0] % nums[1]);
 
             if (nums[0] % nums[1] > 3)
                 Console.WriteLine("El resto de los numeros es mayor a 3");
         }
-
-        
-        /*
-        static void MostrarValores(double [] nums)
-        {
-            for (int i = 0; i < nums.Length; i++)
-            {
-                Console.WriteLine("{0}",nums[i]);
-            }
-        }*/
     }
 }
