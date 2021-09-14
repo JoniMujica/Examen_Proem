@@ -34,7 +34,9 @@ namespace Ejercicio2
             string[] datos = new string[2];
 
             bool ContinenteValido = ValidarContinente( ref datos);
+            bool PagoValido = ValidarPagos(ref datos);
             Console.WriteLine("El valor de retorno de Continente es: {0} \n datos guardados: {1}",ContinenteValido,datos[0]);
+            Console.WriteLine("El valor de retorno de Pagos es: {0} \n datos guardados: {1}", ContinenteValido, datos[1]);
         }
 
         static bool ValidarContinente(ref string [] datos)
@@ -51,6 +53,30 @@ namespace Ejercicio2
                     if (Continentes[i] == continente)
                     {
                         datos[0] = continente;
+                        return true;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Error: Este campo no puede estar vacio");
+                    break;
+                }
+            }
+            return false;
+        }
+
+        static bool ValidarPagos(ref string[] datos)
+        {
+            Console.WriteLine("Escriba el continente donde desea viajar: ");
+            string pagos = Console.ReadLine().Trim();
+            for (int i = 0; i < Pagos.Length; i++)
+            {
+                if (!string.IsNullOrEmpty(pagos))
+                {
+                    pagos = char.ToUpper(pagos[0]) + pagos.Substring(1).ToLower();
+                    if (Pagos[i] == pagos)
+                    {
+                        datos[1] = pagos;
                         return true;
                     }
                 }
