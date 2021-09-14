@@ -11,3 +11,4 @@ D:\Archivos w11\Documentos\Jonathan_Mujica\Ejercicio2\obj\Debug\netcoreapp3.1\Ej
 D:\Archivos w11\Documentos\Jonathan_Mujica\Ejercicio2\obj\Debug\netcoreapp3.1\Ejercicio2.dll
 D:\Archivos w11\Documentos\Jonathan_Mujica\Ejercicio2\obj\Debug\netcoreapp3.1\Ejercicio2.pdb
 D:\Archivos w11\Documentos\Jonathan_Mujica\Ejercicio2\obj\Debug\netcoreapp3.1\Ejercicio2.genruntimeconfig.cache
+D:\Archivos w11\Documentos\Jonathan_Mujica\Ejercicio2\obj\Debug\netcoreapp3.1\Ejercicio2.csproj.AssemblyReference.cache

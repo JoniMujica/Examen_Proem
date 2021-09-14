@@ -25,20 +25,45 @@ namespace Ejercicio2
          
          */
 
+        static double dias;
 
         static void Main(string[] args)
         {
 
             string[] datos = new string[2];
+            bool[] condiciones = new bool[2];
             string[] Continentes = new string[] { "America", "Asia", "Europa", "Africa", "Oceania" };
             string[] Pagos = new string[] { "Debito", "Credito", "Efectivo", "Mercado pago", "Cheque", "Leliq" };
 
-            bool ContinenteValido = ValidarContinente( ref datos , Continentes);
-            bool PagoValido = ValidarContinente(ref datos, Pagos);
-            Console.WriteLine("El valor de retorno de Continente es: {0} \ndatos guardados: {1}",ContinenteValido,datos[0]);
-            Console.WriteLine("El valor de retorno de Pagos es: {0} \ndatos guardados: {1}", PagoValido, datos[1]);
+            SolicitarDias();
+            condiciones[0] = ValidarContinente( ref datos , Continentes);
+            condiciones[1] = ValidarContinente(ref datos, Pagos);
+            Console.WriteLine("El valor de retorno de Continente es: {0} \ndatos guardados: {1}", condiciones[0], datos[0]);
+            Console.WriteLine("El valor de retorno de Pagos es: {0} \ndatos guardados: {1}", condiciones[1], datos[1]);
+
+            double res = OperarCasos(datos,condiciones);
+
+            Console.WriteLine("El monto total a pagar es: {0}",res);
         }
 
+        static void SolicitarDias()
+        {
+            bool cnv = false;
+            Console.WriteLine("Ingrese la cantidad de dias que desea viajar: ");
+            do
+            {
+                cnv = Double.TryParse(Console.ReadLine(), out (dias));
+                
+                if (cnv)
+                {
+                    dias = dias * 100;
+                }
+                else
+                {
+                    Console.WriteLine("ERROR: el valor ingresado es incorrecto");
+                }
+            } while (!cnv);
+        }
         static bool ValidarContinente(ref string [] datos, string [] Tipos)
         {
             int pos = (Tipos.Length <= 5) ? 0 : 1;
@@ -63,6 +88,39 @@ namespace Ejercicio2
                 }
             }
             return false;
+        }
+
+        static double OperarCasos(string [] datos, bool [] condicion)
+        {
+            if (!string.IsNullOrEmpty(datos[0]) && !string.IsNullOrEmpty(datos[1]))
+            {
+                if (datos[0].Contains("Am") && datos[1].Contains("Deb")) 
+                {
+                    return dias - dias * 0.15 - dias * 0.10;
+                }
+                else if (datos[0].Contains("Am"))
+                {
+                    return dias - dias * 0.15;
+                }
+                else if ((datos[0].Contains("Af") || datos[0].Contains("Oc")) && (datos[1].Contains("Mer") || datos[1].Contains("Efe")))
+                {
+                    return dias - dias * 0.30 - dias * 0.15;
+                }
+                else if (datos[0].Contains("Af") || datos[0].Contains("Oc"))
+                {
+                    return dias - dias * 0.30;
+                }
+                else if (datos[0].Contains("Eu") && datos[1].Contains("Deb"))
+                {
+                    return dias - dias * 0.20 - dias * 0.15;
+                }
+                else if (datos[0].Contains("Eu") && datos[1].Contains("Mer"))
+                {
+                    return dias - dias * 0.20 - dias * 0.15;
+                }
+            }
+
+            return -1;
         }
 
         /*
