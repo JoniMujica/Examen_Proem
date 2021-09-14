@@ -25,34 +25,34 @@ namespace Ejercicio2
          
          */
 
-        static string[] Continentes = new string[] { "America", "Asia", "Europa", "Africa", "Oceania" };
-        static string[] Pagos = new string[] { "Débito", "Crédito", "Efectivo", "Mercado Pago", "Cheque", "Leliq" };
 
         static void Main(string[] args)
         {
 
             string[] datos = new string[2];
+            string[] Continentes = new string[] { "America", "Asia", "Europa", "Africa", "Oceania" };
+            string[] Pagos = new string[] { "Débito", "Crédito", "Efectivo", "Mercado Pago", "Cheque", "Leliq" };
 
-            bool ContinenteValido = ValidarContinente( ref datos);
-            bool PagoValido = ValidarPagos(ref datos);
-            Console.WriteLine("El valor de retorno de Continente es: {0} \n datos guardados: {1}",ContinenteValido,datos[0]);
-            Console.WriteLine("El valor de retorno de Pagos es: {0} \n datos guardados: {1}", ContinenteValido, datos[1]);
+            bool ContinenteValido = ValidarContinente( ref datos , Continentes);
+            bool PagoValido = ValidarContinente(ref datos, Pagos);
+            Console.WriteLine("El valor de retorno de Continente es: {0} \ndatos guardados: {1}",ContinenteValido,datos[0]);
+            Console.WriteLine("El valor de retorno de Pagos es: {0} \ndatos guardados: {1}", ContinenteValido, datos[1]);
         }
 
-        static bool ValidarContinente(ref string [] datos)
+        static bool ValidarContinente(ref string [] datos, string [] Tipos)
         {
-            Console.WriteLine("Escriba el continente donde desea viajar: ");
-            string continente = Console.ReadLine().Trim();
+            int pos = (Tipos.Length <= 5) ? 0 : 1;
+            Console.WriteLine("Escriba el {0}: " , (Tipos.Length <= 5) ? "continente donde desea viajar" : "tipo de pago con que desea abonar");
+            string dato = Console.ReadLine().Trim();
             
-
-            for (int i = 0; i < Continentes.Length; i++)
+            for (int i = 0; i < Tipos.Length; i++)
             {
-                if (!string.IsNullOrEmpty(continente))
+                if (!string.IsNullOrEmpty(dato))
                 {
-                    continente = char.ToUpper(continente[0]) + continente.Substring(1).ToLower();
-                    if (Continentes[i] == continente)
+                    dato = char.ToUpper(dato[0]) + dato.Substring(1).ToLower();
+                    if (Tipos[i] == dato)
                     {
-                        datos[0] = continente;
+                        datos[pos] = dato;
                         return true;
                     }
                 }
@@ -65,16 +65,17 @@ namespace Ejercicio2
             return false;
         }
 
+        /*
         static bool ValidarPagos(ref string[] datos)
         {
             Console.WriteLine("Escriba el continente donde desea viajar: ");
             string pagos = Console.ReadLine().Trim();
-            for (int i = 0; i < Pagos.Length; i++)
+            for (int i = 0; i < datos.Length; i++)
             {
                 if (!string.IsNullOrEmpty(pagos))
                 {
                     pagos = char.ToUpper(pagos[0]) + pagos.Substring(1).ToLower();
-                    if (Pagos[i] == pagos)
+                    if (datos[i] == pagos)
                     {
                         datos[1] = pagos;
                         return true;
@@ -87,6 +88,6 @@ namespace Ejercicio2
                 }
             }
             return false;
-        }
+        }*/
     }
 }
