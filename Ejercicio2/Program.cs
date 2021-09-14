@@ -31,12 +31,12 @@ namespace Ejercicio2
 
             string[] datos = new string[2];
             string[] Continentes = new string[] { "America", "Asia", "Europa", "Africa", "Oceania" };
-            string[] Pagos = new string[] { "Débito", "Crédito", "Efectivo", "Mercado Pago", "Cheque", "Leliq" };
+            string[] Pagos = new string[] { "Debito", "Credito", "Efectivo", "Mercado pago", "Cheque", "Leliq" };
 
             bool ContinenteValido = ValidarContinente( ref datos , Continentes);
             bool PagoValido = ValidarContinente(ref datos, Pagos);
             Console.WriteLine("El valor de retorno de Continente es: {0} \ndatos guardados: {1}",ContinenteValido,datos[0]);
-            Console.WriteLine("El valor de retorno de Pagos es: {0} \ndatos guardados: {1}", ContinenteValido, datos[1]);
+            Console.WriteLine("El valor de retorno de Pagos es: {0} \ndatos guardados: {1}", PagoValido, datos[1]);
         }
 
         static bool ValidarContinente(ref string [] datos, string [] Tipos)
