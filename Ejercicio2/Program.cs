@@ -26,6 +26,7 @@ namespace Ejercicio2
          */
 
         static double dias;
+        static double[] cuenta = new double[2];
 
         static void Main(string[] args)
         {
@@ -38,12 +39,17 @@ namespace Ejercicio2
             SolicitarDias();
             condiciones[0] = ValidarContinente( ref datos , Continentes);
             condiciones[1] = ValidarContinente(ref datos, Pagos);
+            string [][] lista = new string[][] { datos, Continentes, Pagos };
             Console.WriteLine("El valor de retorno de Continente es: {0} \ndatos guardados: {1}", condiciones[0], datos[0]);
             Console.WriteLine("El valor de retorno de Pagos es: {0} \ndatos guardados: {1}", condiciones[1], datos[1]);
 
-            double res = OperarCasos(datos, Continentes, Pagos, condiciones);
 
-            Console.WriteLine("El monto total a pagar es: {0}",res);
+            OperarCasos(lista, condiciones);
+
+            Console.WriteLine("El monto total a pagar es: {0}", cuenta[0],cuenta[1]);
+
+            Console.WriteLine("test {0}",lista[0][1]);
+            Console.ReadKey();
         }
 
         static void SolicitarDias()
@@ -91,52 +97,51 @@ namespace Ejercicio2
             return false;
         }
 
-        static double OperarCasos(string [] datos, string[] continentes, string[] pagos,bool [] condicion)
+        static void  OperarCasos(string [][] datos,bool [] condicion)
         {
-            if (!string.IsNullOrEmpty(datos[0]) && !string.IsNullOrEmpty(datos[1]))
+            if (!string.IsNullOrEmpty(datos[0][0]) && !string.IsNullOrEmpty(datos[0][1]))
             {
-                if (datos[0] == continentes[0])
+                if (datos[0][0] == datos[1][0] )
                 {
-                    return dias - dias * 0.15;
+                    cuenta[0] = dias - dias * 0.15;
                 }
-                else if (datos[0] == continentes[0] && datos[1] == pagos[0]) 
+                else if (datos[0][0] == datos[0][1] && datos[0][1] == datos[2][0]) 
                 {
-                    return dias - dias * 0.15 - dias * 0.10;
+                    cuenta[0] = dias - dias * 0.15 - dias * 0.10;
                 }
                 
-                if ((datos[0] == continentes[3] || datos[0] == continentes[4]) && (datos[1] == pagos[3] || datos[1] == pagos[2]))
+                if ((datos[0][0] == datos[1][3] || datos[0][0] == datos[1][4]) && (datos[0][1] == datos[2][2] || datos[0][1] == datos[2][3]))
                 {
-                    return dias - dias * 0.30 - dias * 0.15;
+                    cuenta[0] = dias - dias * 0.30 - dias * 0.15;
                 }
-                else if (datos[0] == continentes[3] || datos[0] == continentes[4])
+                else if (datos[0][0] == datos[1][3] || datos[0][0] == datos[1][4])
                 {
-                    return dias - dias * 0.30;
+                    cuenta[0] = dias - dias * 0.30;
                 }
-                else if ((datos[0] == continentes[2]) && (datos[1] == pagos[0]))
+                else if (((datos[0][0] == datos[1][2])) && (datos[0][1] == datos[2][0]))
                 {
-                    return dias - dias * 0.20 - dias * 0.15;
+                    cuenta[0] = dias - dias * 0.20 - dias * 0.15;
                 }
-                else if ((datos[0] == continentes[2]) && (datos[1] == pagos[3]))
+                else if ((datos[0][0] == datos[1][2]) && (datos[0][1] == datos[2][3]))
                 {
-                    return dias - dias * 0.20 - dias * 0.10;
+                    cuenta[0] = dias - dias * 0.20 - dias * 0.10;
                 }
-                else if ((datos[0] == continentes[2]) && !condicion[1])
+                else if ((datos[0][0] == datos[1][2]) && !condicion[1])
                 {
-                    return dias - dias * 0.20 - dias * 0.05;
+                    cuenta[0] = dias - dias * 0.20 - dias * 0.05;
                 }
                 
                 if (!condicion[0])
                 {
-                    return dias + dias * 0.20;
+                    cuenta[0] = dias + dias * 0.20;
                 }
 
-                if (datos[1] == pagos[5])
+                if (!condicion[0] && datos[0][1] == datos[2][4])
                 {
-                    return dias + dias * 0.15;
+                    cuenta[0] = dias + dias * 0.15;
                 }
             }
 
-            return -1;
         }
 
         /*
