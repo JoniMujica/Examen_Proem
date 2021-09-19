@@ -41,7 +41,7 @@ namespace Ejercicio2
             Console.WriteLine("El valor de retorno de Continente es: {0} \ndatos guardados: {1}", condiciones[0], datos[0]);
             Console.WriteLine("El valor de retorno de Pagos es: {0} \ndatos guardados: {1}", condiciones[1], datos[1]);
 
-            double res = OperarCasos(datos,condiciones);
+            double res = OperarCasos(datos, Continentes, Pagos, condiciones);
 
             Console.WriteLine("El monto total a pagar es: {0}",res);
         }
@@ -75,9 +75,10 @@ namespace Ejercicio2
                 if (!string.IsNullOrEmpty(dato))
                 {
                     dato = char.ToUpper(dato[0]) + dato.Substring(1).ToLower();
+                    datos[pos] = dato;
                     if (Tipos[i] == dato)
                     {
-                        datos[pos] = dato;
+                        //datos[pos] = dato;
                         return true;
                     }
                 }
@@ -90,33 +91,48 @@ namespace Ejercicio2
             return false;
         }
 
-        static double OperarCasos(string [] datos, bool [] condicion)
+        static double OperarCasos(string [] datos, string[] continentes, string[] pagos,bool [] condicion)
         {
             if (!string.IsNullOrEmpty(datos[0]) && !string.IsNullOrEmpty(datos[1]))
             {
-                if (datos[0].Contains("Am") && datos[1].Contains("Deb")) 
-                {
-                    return dias - dias * 0.15 - dias * 0.10;
-                }
-                else if (datos[0].Contains("Am"))
+                if (datos[0] == continentes[0])
                 {
                     return dias - dias * 0.15;
                 }
-                else if ((datos[0].Contains("Af") || datos[0].Contains("Oc")) && (datos[1].Contains("Mer") || datos[1].Contains("Efe")))
+                else if (datos[0] == continentes[0] && datos[1] == pagos[0]) 
+                {
+                    return dias - dias * 0.15 - dias * 0.10;
+                }
+                
+                if ((datos[0] == continentes[3] || datos[0] == continentes[4]) && (datos[1] == pagos[3] || datos[1] == pagos[2]))
                 {
                     return dias - dias * 0.30 - dias * 0.15;
                 }
-                else if (datos[0].Contains("Af") || datos[0].Contains("Oc"))
+                else if (datos[0] == continentes[3] || datos[0] == continentes[4])
                 {
                     return dias - dias * 0.30;
                 }
-                else if (datos[0].Contains("Eu") && datos[1].Contains("Deb"))
+                else if ((datos[0] == continentes[2]) && (datos[1] == pagos[0]))
                 {
                     return dias - dias * 0.20 - dias * 0.15;
                 }
-                else if (datos[0].Contains("Eu") && datos[1].Contains("Mer"))
+                else if ((datos[0] == continentes[2]) && (datos[1] == pagos[3]))
                 {
-                    return dias - dias * 0.20 - dias * 0.15;
+                    return dias - dias * 0.20 - dias * 0.10;
+                }
+                else if ((datos[0] == continentes[2]) && !condicion[1])
+                {
+                    return dias - dias * 0.20 - dias * 0.05;
+                }
+                
+                if (!condicion[0])
+                {
+                    return dias + dias * 0.20;
+                }
+
+                if (datos[1] == pagos[5])
+                {
+                    return dias + dias * 0.15;
                 }
             }
 
