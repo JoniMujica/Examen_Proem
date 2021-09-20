@@ -26,29 +26,38 @@ namespace Ejercicio2
          */
 
         static double dias;
-        static double[] cuenta = new double[2];
-
+        static int idx = 1;
         static void Main(string[] args)
         {
+            // en [0] van los datos ingresados, en [1] los continentes, en [2] los tipos de pagos, en [3] el resultado de operacion en string
+            string[][] lista = new string[][]
+            {
+                new string[2],
+                new string[] { "America", "Asia", "Europa", "Africa", "Oceania" },
+                new string[] { "Debito", "Credito", "Efectivo", "Mercadopago", "Cheque", "Leliq" },
+                new string[3]
+        };
 
-            string[] datos = new string[2];
             bool[] condiciones = new bool[2];
+
+            /*
+            string[] datos = new string[2];
             string[] Continentes = new string[] { "America", "Asia", "Europa", "Africa", "Oceania" };
-            string[] Pagos = new string[] { "Debito", "Credito", "Efectivo", "Mercado pago", "Cheque", "Leliq" };
+            string[] Pagos = new string[] { "Debito", "Credito", "Efectivo", "Mercado pago", "Cheque", "Leliq" };*/
 
             SolicitarDias();
-            condiciones[0] = ValidarContinente( ref datos , Continentes);
-            condiciones[1] = ValidarContinente(ref datos, Pagos);
-            string [][] lista = new string[][] { datos, Continentes, Pagos };
+            condiciones[0] = ValidarContinente( ref lista);
+            condiciones[1] = ValidarContinente(ref lista);
+            /*
             Console.WriteLine("El valor de retorno de Continente es: {0} \ndatos guardados: {1}", condiciones[0], datos[0]);
             Console.WriteLine("El valor de retorno de Pagos es: {0} \ndatos guardados: {1}", condiciones[1], datos[1]);
+            */
 
 
-            OperarCasos(lista, condiciones);
-
-            Console.WriteLine("El monto total a pagar es: {0}", cuenta[0],cuenta[1]);
-
-            Console.WriteLine("test {0}",lista[0][1]);
+            OperarCasos(ref lista, condiciones);
+            Console.Clear();
+            Console.WriteLine("Usted solicito {0} dias con destino a {1} y tipo de pago {2}",dias/100,lista[0][0],lista[0][1]);
+            Console.WriteLine("Bono continente: {0}$\nBono tipo de pago:{1}$\nTotal a pagar: {2}$",lista[3][0],lista[3][1],lista[3][2]);
             Console.ReadKey();
         }
 
@@ -70,21 +79,24 @@ namespace Ejercicio2
                 }
             } while (!cnv);
         }
-        static bool ValidarContinente(ref string [] datos, string [] Tipos)
+        static bool ValidarContinente(ref string [][] datos)
         {
-            int pos = (Tipos.Length <= 5) ? 0 : 1;
-            Console.WriteLine("Escriba el {0}: " , (Tipos.Length <= 5) ? "continente donde desea viajar" : "tipo de pago con que desea abonar");
+            
+            int pos = (datos[idx].Length <= 5) ? 0 : 1;
+            Console.WriteLine("Escriba el {0}: " , (datos[idx].Length <= 5) ? "continente donde desea viajar" : "tipo de pago con que desea abonar");
             string dato = Console.ReadLine().Trim();
             
-            for (int i = 0; i < Tipos.Length; i++)
+            for (int i = 0; i < datos[idx].Length; i++)
             {
                 if (!string.IsNullOrEmpty(dato))
                 {
                     dato = char.ToUpper(dato[0]) + dato.Substring(1).ToLower();
-                    datos[pos] = dato;
-                    if (Tipos[i] == dato)
+                    datos[0][pos] = dato;
+                    if (datos[idx][i] == dato)
                     {
                         //datos[pos] = dato;
+                        idx++;
+                        if (idx > 2) idx = 1;
                         return true;
                     }
                 }
@@ -94,79 +106,95 @@ namespace Ejercicio2
                     break;
                 }
             }
+            idx++;
             return false;
         }
 
-        static void  OperarCasos(string [][] datos,bool [] condicion)
+        static void  OperarCasos(ref string [][] datos,bool [] condicion)
         {
+            //[0] descuento por continente [1] descuento por pagos [3] pago total
+            double[] calculados = new double[3];
+
             if (!string.IsNullOrEmpty(datos[0][0]) && !string.IsNullOrEmpty(datos[0][1]))
             {
-                if (datos[0][0] == datos[1][0] )
+                
+                if (datos[0][0] == datos[1][0] && datos[0][1] == datos[2][0]) //Si es América tiene un 15% de descuento y si además paga por débito
                 {
-                    cuenta[0] = dias - dias * 0.15;
+                    calculados[0] = dias * 0.15;
+                    calculados[1] = dias * 0.10;
+                    calculados[2] = dias - dias * 0.15 - dias * 0.10;
+                    //cuenta[0] = dias - dias * 0.15 - dias * 0.10;
                 }
-                else if (datos[0][0] == datos[0][1] && datos[0][1] == datos[2][0]) 
+                else if (datos[0][0] == datos[1][0]) // Si es América tiene un 15 % de descuento
                 {
-                    cuenta[0] = dias - dias * 0.15 - dias * 0.10;
+                    //cuenta[0] = dias - dias * 0.15;
+                    calculados[0] = dias * 0.15;
+                    calculados[2] = dias - dias * 0.15;
                 }
                 
-                if ((datos[0][0] == datos[1][3] || datos[0][0] == datos[1][4]) && (datos[0][1] == datos[2][2] || datos[0][1] == datos[2][3]))
+                if ((datos[0][0] == datos[1][3] || datos[0][0] == datos[1][4]) && (datos[0][1] == datos[2][2] || datos[0][1] == datos[2][3])) //Si es África u Oceanía tiene un 30% de descuento y si además paga por mercadoPago o efectivo
                 {
-                    cuenta[0] = dias - dias * 0.30 - dias * 0.15;
+                    calculados[0] = dias * 0.30;
+                    calculados[1] = dias * 0.15;
+                    calculados[2] = dias - dias * 0.30 - dias * 0.15;
+                    //cuenta[0] = dias - dias * 0.30 - dias * 0.15;
                 }
-                else if (datos[0][0] == datos[1][3] || datos[0][0] == datos[1][4])
+                else if (datos[0][0] == datos[1][3] || datos[0][0] == datos[1][4]) ////Si es África u Oceanía tiene
                 {
-                    cuenta[0] = dias - dias * 0.30;
-                }
-                else if (((datos[0][0] == datos[1][2])) && (datos[0][1] == datos[2][0]))
-                {
-                    cuenta[0] = dias - dias * 0.20 - dias * 0.15;
-                }
-                else if ((datos[0][0] == datos[1][2]) && (datos[0][1] == datos[2][3]))
-                {
-                    cuenta[0] = dias - dias * 0.20 - dias * 0.10;
-                }
-                else if ((datos[0][0] == datos[1][2]) && !condicion[1])
-                {
-                    cuenta[0] = dias - dias * 0.20 - dias * 0.05;
-                }
-                
-                if (!condicion[0])
-                {
-                    cuenta[0] = dias + dias * 0.20;
+                    calculados[0] = dias * 0.30;
+                    calculados[2] = dias - dias * 0.30;
                 }
 
-                if (!condicion[0] && datos[0][1] == datos[2][4])
+                if ((datos[0][0] == datos[1][2]) && (datos[0][1] == datos[2][0])) //Si es Europa tiene un 20% de descuento y si además paga por débito se le agrega un 15 %
                 {
-                    cuenta[0] = dias + dias * 0.15;
+                    calculados[0] = dias * 0.20;
+                    calculados[1] = dias * 0.15;
+                    calculados[2] = dias - dias * 0.20 - dias * 0.15;
+                    //cuenta[0] = dias - dias * 0.20 - dias * 0.15;
+                }
+                else if ((datos[0][0] == datos[1][2]) && (datos[0][1] == datos[2][3])) //Si es Europa tiene un 20% de descuento y si además paga por mercadoPago un 10%
+                {
+                    calculados[0] = dias * 0.20;
+                    calculados[1] = dias * 0.10;
+                    calculados[2] = dias - dias * 0.20 - dias * 0.10;
+                    //cuenta[0] = dias - dias * 0.20 - dias * 0.10;
+                }
+                else if ((datos[0][0] == datos[1][2]) && ((datos[0][1] != datos[2][0] && datos[0][1] !=  datos[2][3]) || !condicion[1])) //cualquier otro medio 5%
+                {
+
+                    calculados[0] = dias * 0.20;
+                    calculados[1] = dias * 0.05;
+                    calculados[2] = dias - dias * 0.20 - dias * 0.05;
+
+                    //cuenta[0] = dias - dias * 0.20 - dias * 0.05;
+                }
+
+                /*
+                else if (datos[0][0] == datos[1][2]) //Si es Europa tiene un 20% de descuento 
+                {
+                    calculados[0] = dias * 0.20;
+                    calculados[2] = dias * 0.20;
+                }*/
+                
+                if (!condicion[0]) //cualquier otro continente tiene un recargo del 20%
+                {
+                    calculados[0] = dias * 0.20;
+                    calculados[2] = dias + dias * 0.20;
+                }
+
+                if (datos[0][1] == datos[2][4])
+                {
+                    calculados[1] += dias * 0.15;
+                    calculados[2] += dias * 0.15;
+                }
+
+                // con esto convierto a string
+                for (int i = 0; i < calculados.Length; i++)
+                {
+                    datos[3][i] = calculados[i].ToString();
                 }
             }
 
         }
-
-        /*
-        static bool ValidarPagos(ref string[] datos)
-        {
-            Console.WriteLine("Escriba el continente donde desea viajar: ");
-            string pagos = Console.ReadLine().Trim();
-            for (int i = 0; i < datos.Length; i++)
-            {
-                if (!string.IsNullOrEmpty(pagos))
-                {
-                    pagos = char.ToUpper(pagos[0]) + pagos.Substring(1).ToLower();
-                    if (datos[i] == pagos)
-                    {
-                        datos[1] = pagos;
-                        return true;
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Error: Este campo no puede estar vacio");
-                    break;
-                }
-            }
-            return false;
-        }*/
     }
 }
